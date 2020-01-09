@@ -45,3 +45,8 @@ footer a:hover{
 .secret-input{
   margin: 0 auto;
 }
+
+.top-secret{
+  margin-top: 100px;
+  text-align: center;
+}
