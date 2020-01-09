@@ -122,7 +122,8 @@ app.get("/secrets", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.logout();
-  req.session.destroy();
+  req.session.destroy((err) => {
+    res.clearCookie('connect.sid');
   res.redirect("/");
 });
 
