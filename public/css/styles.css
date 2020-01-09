@@ -1,7 +1,24 @@
 
 body {
   background-color: #f6eec9;
-  color: #ff6464;
+  color: #c72c41;
+}
+img {
+  width: 100px;
+}
+footer{
+  text-align: center;
+  font-size: small;
+  color: #464159;
+  margin-top: 5%;
+}
+footer a{
+  color: #801336;
+  text-decoration: none;
+}
+footer a:hover{
+  color: #c72c41;
+  text-decoration: none;
 }
 
 .centered {
@@ -15,11 +32,7 @@ body {
   color: #fed39f;
 }
 .secret-text:hover {
-  color: #ff6464;
-}
-
-img {
-  width: 100px;
+  color: #c72c41;
 }
 .jumbotron {
   background-color: #f6eec9;
@@ -27,5 +40,8 @@ img {
 
 .form-control {
   width: 75%;
+}
+
+.secret-input{
   margin: 0 auto;
 }
