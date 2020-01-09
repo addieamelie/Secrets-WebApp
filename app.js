@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.use(
   cookieSession({
     secret: process.env.SECRET,
-    signed: false
+    keys: ['key1', 'key2']
   })
 );
 
