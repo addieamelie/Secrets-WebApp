@@ -29,7 +29,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {
+mongoose.connect(process.env.DATABASE, {
   //to connect to MongoDB Atlas change to your own url
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -72,7 +72,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/secrets",
+      callbackURL: "https://secrets-keeper.herokuapp.com/auth/google/secrets",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -186,6 +186,6 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server started on port 3000.");
 });
