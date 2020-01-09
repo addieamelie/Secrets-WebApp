@@ -29,7 +29,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect( String(process.env.DB), {
+mongoose.connect("mongodb+srv://admin-addie:aduska123@secrets-jq6rf.mongodb.net/secretsDB", {
   //to connect to MongoDB Atlas change to your own url
   useNewUrlParser: true,
   useUnifiedTopology: true,
