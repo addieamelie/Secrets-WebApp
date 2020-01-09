@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -19,7 +19,7 @@ app.use(express.static("public"));
 
 //Must be placed here
 app.use(
-  session({
+  cookieSession({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
