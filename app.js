@@ -21,8 +21,7 @@ app.use(express.static("public"));
 app.use(
   cookieSession({
     secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false
+    signed: false
   })
 );
 
