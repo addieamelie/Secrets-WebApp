@@ -1,6 +1,7 @@
 
 body {
-  background-color: #E8ECEF;
+  background-color: #f6eec9;
+  color: #ff6464;
 }
 
 .centered {
@@ -11,6 +12,20 @@ body {
 .secret-text {
   text-align: center;
   font-size: 2rem;
-  color: #fff;
-  background-color: #000;
+  color: #fed39f;
+}
+.secret-text:hover {
+  color: #ff6464;
+}
+
+img {
+  width: 100px;
+}
+.jumbotron {
+  background-color: #f6eec9;
+}
+
+.form-control {
+  width: 75%;
+  margin: 0 auto;
 }
