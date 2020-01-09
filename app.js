@@ -70,10 +70,10 @@ passport.deserializeUser(function(id, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "198069977005-is3akqmvuvmqtqpebgguqunahhmter6f.apps.googleusercontent.com",
-      clientSecret: "cbBus0IZ0NDy02HApMlOJewf",
-      callbackURL: "https://secrets-keeper.herokuapp.com/auth/google/secrets"
-      //userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: "https://secrets-keeper.herokuapp.com/auth/google/secrets",
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
     },
     function(accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id }, function(err, user) {
