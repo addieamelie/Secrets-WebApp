@@ -20,6 +20,7 @@ app.use(express.static("public"));
 //Must be placed here
 app.use(
   cookieSession({
+    name: 'session',
     secret: process.env.SECRET,
     keys: ['key1', 'key2']
   })
