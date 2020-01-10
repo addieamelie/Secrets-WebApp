@@ -1,4 +1,3 @@
-//jshint esversion:6
 require("dotenv").config(); //put at the top
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -21,7 +20,7 @@ app.use(express.static("public"));
 app.use(
   cookieSession({
     name: "session",
-    secret: "JayParkismyfuturehusband",
+    secret: process.end.SECRET,
     keys: ["key1", "key2"]
   })
 );
@@ -30,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect(
-  "mongodb+srv://admin-addie:aduska123@secrets-jq6rf.mongodb.net/secretsDB",
+  process.env.DB,
   {
     //to connect to MongoDB Atlas change to your own url
     useNewUrlParser: true,
@@ -73,15 +72,14 @@ passport.deserializeUser(function(id, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "198069977005-is3akqmvuvmqtqpebgguqunahhmter6f.apps.googleusercontent.com",
-      clientSecret: "cbBus0IZ0NDy02HApMlOJewf",
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.end.CLIENT_SECRET,
       callbackURL: "http://secrets-keeper.herokuapp.com/auth/google/secrets",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
     },
     function(accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id, username:profile.displayName }, function(err, user) {
-        //need a package to use findOr create
+        //need a package to use findOrcreate
         return cb(err, user);
       });
     }
