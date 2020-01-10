@@ -1,4 +1,4 @@
-require("dotenv").config(); //put at the top
+require("dotenv").config(); //Always place at the top
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-//Must be placed here
+//Place before initializing passport
 app.use(
   cookieSession({
     name: "session",
@@ -31,7 +31,6 @@ app.use(passport.session());
 mongoose.connect(
   process.env.DB,
   {
-    //to connect to MongoDB Atlas change to your own url
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
@@ -40,7 +39,7 @@ mongoose.connect(
 
 mongoose.set("useCreateIndex", true);
 
-// Create schema
+// Create mongoose schema inclugin googleId
 const userSchema = new mongoose.Schema({
   //has to be mongoose schema
   email: String,
@@ -73,13 +72,13 @@ passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID,
-      clientSecret: process.end.CLIENT_SECRET,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "http://secrets-keeper.herokuapp.com/auth/google/secrets",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" 
     },
     function(accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id, username:profile.displayName }, function(err, user) {
-        //need a package to use findOrcreate
+        //Need the mongoose package to use findOrCreate
         return cb(err, user);
       });
     }
@@ -92,14 +91,14 @@ app.get("/", (req, res) => {
 
 app.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] }) //google strategy
+  passport.authenticate("google", { scope: ["profile"] }) //use Google strategy
 );
 
 app.get(
   "/auth/google/secrets",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    // Successful authentication redirect to secrets
     res.redirect("/secrets");
   }
 );
@@ -111,6 +110,7 @@ app.get("/register", (req, res) => {
   res.render("register");
 });
 app.get("/secrets", (req, res) => {
+  //Access to /secrets only for Authenticated users
   if (req.isAuthenticated()) {
     User.find({ secret: { $ne: null } }, (err, foundUsers) => {
       if (err) {
@@ -180,7 +180,7 @@ app.post("/login", (req, res) => {
     username: req.body.username,
     password: req.body.password
   });
-  //This method from passport
+
   req.login(user, err => {
     if (err) {
       console.log(err);
