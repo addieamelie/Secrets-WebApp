@@ -80,7 +80,7 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //added
     },
     function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ googleId: profile.id }, function(err, user) {
+      User.findOrCreate({ googleId: profile.id, username:profile.displayName }, function(err, user) {
         //need a package to use findOr create
         return cb(err, user);
       });
