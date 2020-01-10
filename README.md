@@ -12,4 +12,4 @@ Secrets website wher you can anonymously share secrets:
 
 Website made using:
 
-Bootstrap, Node.js(Express.js), EJS, MongoDB(Mongoose), OAuth
+Bootstrap, Node.js(Express.js), EJS, MongoDB(Mongoose), Passport, OAuth
